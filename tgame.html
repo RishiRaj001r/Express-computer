@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Typing Speed Game</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  #word {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  #input {
+    font-size: 24px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 300px;
+  }
+  #result {
+    font-size: 24px;
+    font-weight: bold;
+    color: green;
+  }
+</style>
+</head>
+<body>
+<h1>Word Typing Speed Game</h1>
+<div id="word">Type the word below:</div>
+<input type="text" id="input" oninput="checkInput()">
+<div id="result"></div>
+
+<script>
+  const words = ['apple', 'banana', 'orange', 'grape', 'pear', 'kiwi', 'strawberry', 'pineapple', 'blueberry', 'watermelon'];
+  let currentWord;
+  let startTime;
+
+  function startGame() {
+    currentWord = words[Math.floor(Math.random() * words.length)];
+    document.getElementById('word').textContent = currentWord;
+    document.getElementById('input').value = '';
+    document.getElementById('result').textContent = '';
+    startTime = Date.now();
+  }
+
+  function checkInput() {
+    const input = document.getElementById('input').value;
+    if (input === currentWord) {
+      const endTime = Date.now();
+      const elapsedTime = (endTime - startTime) / 1000;
+      const wpm = Math.round((currentWord.length / 5) / (elapsedTime / 60));
+      document.getElementById('result').textContent = `Congratulations! Your typing speed is ${wpm} WPM.`;
+      setTimeout(startGame, 2000);
+    }
+  }
+
+  startGame();
+</script>
+</body>
+</html>
